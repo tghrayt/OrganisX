@@ -1,12 +1,33 @@
 \chapter{Introduction}
 
-\section{Objectifs du projet}
-L'objectif principal de \textbf{OrganisX} est de fournir une application de gestion de tâches moderne, sécurisée et évolutive, permettant le suivi des projets, des tâches et des notifications en temps réel.
+Dans un contexte où la collaboration et la gestion efficace des tâches prennent une importance croissante, le projet \textbf{OrganisX} a pour objectif de fournir une solution moderne, modulaire et extensible permettant d’organiser le travail individuel et collectif. 
 
-\section{Technologies utilisées}
-Le projet utilise les technologies suivantes :
+L’idée initiale est née du constat que les outils existants, bien que puissants, sont souvent soit trop complexes pour un usage personnel, soit trop limités pour un usage collaboratif en équipe. \textbf{OrganisX} se positionne comme un compromis entre simplicité et extensibilité, en mettant l’accent sur une architecture claire et évolutive.
+
+\section{Objectifs du projet}
+Les objectifs principaux du projet peuvent être résumés comme suit :
 \begin{itemize}
-	\item \textbf{Backend} : .NET 9, PostgreSQL, RabbitMQ
-	\item \textbf{Frontend} : Angular 16
-	\item \textbf{Communication} : RabbitMQ pour les événements temps réel
+	\item Proposer une application web simple et intuitive pour la gestion des tâches personnelles.
+	\item Introduire progressivement des fonctionnalités collaboratives (partage, équipes, gestion de projets).
+	\item Concevoir une architecture \textbf{hexagonale} afin de garantir une séparation claire entre le domaine métier, les services applicatifs et les couches d’infrastructure.
+	\item Documenter systématiquement les choix techniques au travers des \textbf{ADR} (Architecture Decision Records).
+	\item Mettre en place une feuille de route incrémentale basée sur des \textbf{MVP (Minimum Viable Products)} afin de livrer de la valeur rapidement et de manière continue.
 \end{itemize}
+
+\section{Approche et méthodologie}
+La conception de \textbf{OrganisX} suit une approche incrémentale et agile :
+\begin{itemize}
+	\item Découpage du projet en trois MVP successifs : 
+	\begin{enumerate}
+		\item \textbf{MVP1} : gestion des tâches personnelles et authentification.
+		\item \textbf{MVP2} : introduction de la collaboration (partage, équipes).
+		\item \textbf{MVP3} : ajout de fonctionnalités avancées d’organisation (projets, notifications, reporting).
+	\end{enumerate}
+	\item Utilisation de \textbf{GitHub} pour le suivi des tâches (issues, milestones, projects).
+	\item Documentation vivante et centralisée dans le projet \textbf{OrganisXDocs}, structurée en sections thématiques (architecture, backend, frontend, etc.).
+\end{itemize}
+
+\section{Vision à long terme}
+Au-delà des trois premiers MVP, \textbf{OrganisX} vise à devenir une plateforme extensible qui pourra accueillir des modules additionnels tels que la gestion des ressources, l’intégration avec des outils tiers (calendriers, messageries), ou encore l’analyse de la productivité grâce à des métriques et des tableaux de bord.
+
+Ainsi, ce projet se veut à la fois un terrain d’expérimentation technique (architecture hexagonale, documentation structurée, microservices) et une solution concrète pouvant évoluer en fonction des besoins utilisateurs.
