@@ -1,0 +1,67 @@
+\documentclass[12pt,a4paper]{report}
+
+% --- Packages de base ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}     % Pour les images
+\usepackage{hyperref}     % Liens cliquables
+\usepackage{geometry}     % Marges
+\usepackage{amsmath,amssymb} % Maths si besoin
+\usepackage{listings}     % Pour le code
+\usepackage{color}
+
+% --- Marges ---
+\geometry{
+	a4paper,
+	left=25mm,
+	right=25mm,
+	top=25mm,
+	bottom=25mm
+}
+
+% --- Couleurs pour le code ---
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.95}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},
+	commentstyle=\color{codegray},
+	keywordstyle=\color{blue},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breaklines=true,
+	frame=single,
+	numbers=left,
+	stepnumber=1,
+	tabsize=2
+}
+\lstset{style=mystyle}
+
+% --- Titre et auteur ---
+\title{Documentation du projet OrganisX}
+\author{Youssef Tghrayt}
+\date{\today}
+
+\begin{document}
+	
+	% --- Page de titre ---
+	\maketitle
+	
+	% --- Préface ---
+	\input{sections/preface.tex}
+	
+	% --- Table des matières ---
+	\tableofcontents
+	\newpage
+	
+	% --- Sections principales ---
+	\input{sections/introduction.tex}
+	\input{sections/architecture.tex}
+	\input{sections/backend.tex}
+	\input{sections/frontend.tex}
+	\input{sections/conclusion.tex}
+	
+\end{document}
