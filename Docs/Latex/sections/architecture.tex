@@ -1,0 +1,193 @@
+\chapter{Architecture}
+
+L’architecture du projet \textbf{OrganisX} constitue la fondation sur laquelle reposent toutes les fonctionnalités, la qualité et l’évolutivité du système. Elle a été conçue pour répondre aux besoins suivants :
+\begin{itemize}
+	\item Séparer clairement le \textbf{cœur métier} des préoccupations techniques.
+	\item Assurer une \textbf{testabilité élevée} et faciliter la maintenance.
+	\item Permettre une \textbf{évolution progressive} vers des solutions distribuées et scalables (microservices, cloud).
+	\item Favoriser l’\textbf{adaptabilité technologique} (pouvoir remplacer une base de données, un framework, une librairie sans réécrire la logique métier).
+\end{itemize}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/architecture.png}
+	\caption{Architecture globale du projet OrganisX}
+	\label{fig:architecture}
+\end{figure}
+
+\section{Philosophie générale}
+Le projet adopte une approche \textbf{hexagonale} (également appelée \textit{Ports \& Adapters}).  
+Cette architecture permet d’organiser le code autour de son \textbf{domaine métier}, tout en rendant les dépendances techniques secondaires et interchangeables.  
+En pratique, cela signifie que le cœur applicatif (les règles métier et les cas d’utilisation) ne dépend d’aucune technologie particulière, mais uniquement d’interfaces (ports). Les implémentations concrètes (adapters) se trouvent en périphérie.
+
+\newpage
+\section{Structure Backend}
+Le backend est développé en \textbf{.NET 9} et adopte une organisation orientée \textbf{microservices}, tout en respectant les principes de l’architecture hexagonale.  
+Chaque service est indépendant, possède sa propre base de données et expose une API REST.  
+
+Les microservices principaux sont :  
+\begin{itemize}
+	\item \texttt{OrganisX.AuthService} :
+	\begin{itemize}
+		\item Gestion de l’authentification et de l’autorisation via \textbf{JWT}.
+		\item Contient les entités liées aux utilisateurs (User, Role).
+		\item Peut être remplacé à terme par une solution externe (Azure AD, Keycloak).
+	\end{itemize}
+	
+	\item \texttt{OrganisX.TaskService} :
+	\begin{itemize}
+		\item Gestion du cycle de vie des tâches (création, assignation, suivi).
+		\item Implémente les règles métier associées (une tâche doit avoir un responsable, des deadlines, etc.).
+	\end{itemize}
+	
+	\item \texttt{OrganisX.TeamService} :
+	\begin{itemize}
+		\item Gestion des équipes et des relations entre membres.
+		\item Coordination avec \texttt{TaskService} pour affecter les tâches aux bons utilisateurs.
+	\end{itemize}
+	
+	\item \texttt{OrganisX.ReportingService} (optionnel/futur) :
+	\begin{itemize}
+		\item Génération de rapports (productivité, suivi des tâches).
+		\item Peut consommer des événements provenant des autres microservices.
+	\end{itemize}
+\end{itemize}
+
+Chaque microservice respecte la structure interne suivante (dérivée de l’architecture hexagonale) :  
+\begin{itemize}
+	\item \textbf{Domain} : entités métier et invariants.
+	\item \textbf{Application} : cas d’utilisation.
+	\item \textbf{Infrastructure} : persistance, messaging (RabbitMQ/Azure Service Bus), accès API externes.
+	\item \textbf{Api} : contrôleurs REST exposant les fonctionnalités.
+\end{itemize}
+
+La communication entre microservices peut se faire :  
+\begin{itemize}
+	\item en \textbf{synchrones} (API REST) pour les appels directs,
+	\item en \textbf{asynchrones} (bus de messages) pour les événements métier (ex. création d’une tâche notifiant le service d’équipe).
+\end{itemize}
+
+
+\texttt{Domain}, \texttt{Application}, \texttt{Infrastructure} et \texttt{Api}.  
+
+\begin{forest}
+	for tree={
+		font=\ttfamily,
+		grow'=0,
+		child anchor=west,
+		parent anchor=south,
+		anchor=west,
+		calign=first,
+		edge path={
+			\noexpand\path [draw, \forestoption{edge}] (!u.south west) +(7.5pt,0) |- (.child anchor)\forestoption{edge label};
+		},
+		before typesetting nodes={
+			if n=1
+			{insert before={[,phantom]}}
+			{}
+		},
+		fit=band,
+		before computing xy={l=15pt},
+	}
+	[/backend
+	[AuthService
+	[AuthService.Domain]
+	[AuthService.Application]
+	[AuthService.Infrastructure]
+	[AuthService.Api]
+	]
+	[TodoService
+	[TodoService.Domain]
+	[TodoService.Application]
+	[TodoService.Infrastructure]
+	[TodoService.Api]
+	]
+	[NotificationService
+	[NotificationService.Domain]
+	[NotificationService.Application]
+	[NotificationService.Infrastructure]
+	[NotificationService.Api]
+	]
+	[Shared
+	[Shared]
+	]
+	]
+\end{forest}
+
+Cette organisation respecte le principe de \textbf{dépendances dirigées vers l’intérieur} : seul le domaine est indépendant, tandis que l’infrastructure dépend de l’application et du domaine.
+
+\section{Structure Frontend}
+Le frontend est conçu en \textbf{Angular 20}. Il constitue la porte d’entrée utilisateur vers les fonctionnalités d’OrganisX.  
+Son organisation repose sur les principes suivants :
+\begin{itemize}
+	\item \textbf{Modules fonctionnels} : chaque domaine métier (authentification, gestion des tâches, gestion des équipes) est isolé dans un module Angular.
+	\item \textbf{Services Angular} : centralisation de la logique de communication avec le backend via l’API REST.
+	\item \textbf{Composants UI} : interfaces réactives permettant une bonne expérience utilisateur.
+	\item \textbf{State management} (si besoin futur) : possibilité d’introduire NgRx pour gérer des flux complexes d’état.
+\end{itemize}
+
+\begin{forest}
+	for tree={
+		font=\ttfamily,
+		grow'=0,
+		child anchor=west,
+		parent anchor=south,
+		anchor=west,
+		calign=first,
+		edge path={
+			\noexpand\path [draw, \forestoption{edge}] (!u.south west) +(7.5pt,0) |- (.child anchor)\forestoption{edge label};
+		},
+		before typesetting nodes={
+			if n=1
+			{insert before={[,phantom]}}
+			{}
+		},
+		fit=band,
+		before computing xy={l=15pt},
+	}
+	[/frontend
+	[src/app
+	[auth
+	[login]
+	[register]
+	]
+	[todos
+	[task-list]
+	[task-detail]
+	[project-view]
+	]
+	[notifications
+	[notification-list]
+	]
+	[shared
+	[components]
+	[services]
+	]
+	[core
+	[interceptors]
+	[guards]
+	[api-clients]
+	]
+	]
+	]
+\end{forest}
+
+\section{Communication Frontend/Backend}
+L’interaction entre le frontend et le backend se fait via une \textbf{API RESTful}, en utilisant le format \textbf{JSON}.  
+Quelques caractéristiques principales :
+\begin{itemize}
+	\item \textbf{Authentification} : sécurisée par \textbf{JWT}.
+	\item \textbf{Endpoints REST} exposant les cas d’utilisation (ex. \texttt{POST /tasks}, \texttt{GET /teams}).
+	\item \textbf{Validation et erreurs} : centralisées dans le backend et renvoyées au frontend pour affichage clair.
+\end{itemize}
+
+\section{Évolution future : vers les microservices}
+Le projet démarre sous la forme d’un \textbf{monolithe modulaire}. Toutefois, grâce à l’architecture hexagonale, il est possible de faire évoluer certaines parties vers des \textbf{microservices indépendants} si la charge augmente.  
+Par exemple :
+\begin{itemize}
+	\item Le module d’authentification peut être externalisé en un service dédié.
+	\item La gestion des tâches peut être scalée indépendamment de la gestion des utilisateurs.
+	\item La communication inter-services pourra s’appuyer sur des \textbf{messages asynchrones} (ex. RabbitMQ, Azure Service Bus).
+\end{itemize}
+
+Ainsi, l’architecture choisie garantit à la fois la \textbf{simplicité initiale} et la \textbf{scalabilité future}.

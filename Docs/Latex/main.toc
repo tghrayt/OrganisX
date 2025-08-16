@@ -3,3 +3,9 @@
 \contentsline {section}{\numberline {1.1}Objectifs du projet}{3}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Approche et méthodologie}{3}{section.1.2}%
 \contentsline {section}{\numberline {1.3}Vision à long terme}{4}{section.1.3}%
+\contentsline {chapter}{\numberline {2}Architecture}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Philosophie générale}{6}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Structure Backend}{7}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Structure Frontend}{8}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Communication Frontend/Backend}{9}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Évolution future : vers les microservices}{9}{section.2.5}%
