@@ -181,13 +181,82 @@ Quelques caractéristiques principales :
 	\item \textbf{Validation et erreurs} : centralisées dans le backend et renvoyées au frontend pour affichage clair.
 \end{itemize}
 
-\section{Évolution future : vers les microservices}
-Le projet démarre sous la forme d’un \textbf{monolithe modulaire}. Toutefois, grâce à l’architecture hexagonale, il est possible de faire évoluer certaines parties vers des \textbf{microservices indépendants} si la charge augmente.  
-Par exemple :
+\section{Architecture microservices dès le MVP}
+Le projet adopte directement une \textbf{architecture microservices}, afin d’assurer une meilleure séparation des responsabilités, une évolutivité indépendante des modules et une meilleure résilience.  
+
+Les services principaux prévus dès le MVP sont :
 \begin{itemize}
-	\item Le module d’authentification peut être externalisé en un service dédié.
-	\item La gestion des tâches peut être scalée indépendamment de la gestion des utilisateurs.
-	\item La communication inter-services pourra s’appuyer sur des \textbf{messages asynchrones} (ex. RabbitMQ, Azure Service Bus).
+	\item \textbf{AuthService} : gestion des utilisateurs, inscription, connexion et génération de tokens JWT.
+	\item \textbf{TaskService} : gestion des tâches (création, mise à jour, suppression, consultation).
 \end{itemize}
 
-Ainsi, l’architecture choisie garantit à la fois la \textbf{simplicité initiale} et la \textbf{scalabilité future}.
+La communication entre les services s’effectue via des \textbf{API REST sécurisées}.  
+À terme, l’architecture pourra intégrer une communication \textbf{asynchrone par messages} (RabbitMQ, Azure Service Bus, Kafka) pour gérer des flux plus complexes.  
+
+Cette approche permet de garantir dès le départ :
+\begin{itemize}
+	\item Une \textbf{scalabilité indépendante} (chaque microservice peut être déployé et scalé séparément).
+	\item Une \textbf{flexibilité technologique} (chaque service peut évoluer indépendamment avec ses propres choix techniques).
+	\item Une \textbf{résilience accrue} (panne d’un service n’entraîne pas la chute du système global).
+\end{itemize}
+
+\section{Communication entre microservices}
+La communication entre microservices est un élément clé de l’architecture. Dans le cadre du \textbf{MVP 1}, le choix s’oriente vers une \textbf{communication synchrone via API REST sécurisées}, afin de privilégier la simplicité de mise en œuvre. Chaque service expose ses fonctionnalités sous forme d’API documentées (ex. Swagger / OpenAPI).  
+
+\subsection{Communication synchrone}
+\begin{itemize}
+	\item Les microservices communiquent via \textbf{HTTP/HTTPS} avec des formats standards comme \textbf{JSON}.
+	\item Un \textbf{API Gateway} (optionnel au MVP) peut être introduit pour centraliser l’accès aux différents services, gérer l’authentification et appliquer des règles de routage.
+	\item Exemple : le \textbf{TaskService} vérifie auprès de l’\textbf{AuthService} si un utilisateur est authentifié avant de permettre la création d’une tâche.
+\end{itemize}
+
+\subsection{Communication asynchrone (prévue pour les évolutions futures)}
+Afin d’assurer la scalabilité et la résilience, une communication asynchrone pourra être mise en place dans les versions ultérieures :
+\begin{itemize}
+	\item Utilisation de \textbf{message brokers} tels que \textbf{RabbitMQ}, \textbf{Kafka} ou \textbf{Azure Service Bus}.
+	\item Gestion d’événements métiers (\textit{UserRegistered}, \textit{TaskCreated}, \textit{TaskCompleted}, etc.).
+	\item Permet de découpler davantage les microservices et d’améliorer la \textbf{tolérance aux pannes}.
+\end{itemize}
+
+\subsection{Gestion des contrats et documentation}
+\begin{itemize}
+	\item Chaque microservice expose un \textbf{contrat d’API} clair (OpenAPI/Swagger).
+	\item La documentation est versionnée avec le code source pour garantir la cohérence.
+	\item Les tests d’intégration incluent des vérifications de compatibilité entre services.
+\end{itemize}
+
+Ainsi, le système combine une \textbf{approche simple et pragmatique au démarrage} avec la possibilité d’évoluer vers des \textbf{communications asynchrones robustes} lorsque les besoins l’exigeront.
+
+
+\section{Monitoring et observabilité}
+Afin de garantir la fiabilité et la maintenabilité du système, une stratégie de \textbf{monitoring centralisé} est mise en place dès le MVP. L’outil choisi est \textbf{Telemetry BetterStack}, qui permet de collecter, centraliser et analyser les logs provenant des différents microservices.
+
+\subsection{Collecte des logs}
+\begin{itemize}
+	\item Chaque microservice est configuré pour envoyer ses \textbf{logs applicatifs} (ex. erreurs, requêtes entrantes, événements métiers) vers la plateforme BetterStack.
+	\item Les logs sont structurés au format \textbf{JSON} pour faciliter leur exploitation.
+	\item Les logs sensibles (mots de passe, tokens, données personnelles) sont systématiquement masqués avant l’envoi.
+\end{itemize}
+
+\subsection{Suivi de la performance et alertes}
+\begin{itemize}
+	\item BetterStack permet de \textbf{surveiller les métriques clés} : temps de réponse des API, nombre d’erreurs, taux de succès.
+	\item Mise en place de \textbf{seuils d’alerte} (ex. temps de réponse > 2s, taux d’erreurs > 5\%) déclenchant des notifications (email, Slack, etc.).
+	\item Les tableaux de bord offrent une vue consolidée de l’état des microservices.
+\end{itemize}
+
+\subsection{Traçabilité des requêtes}
+\begin{itemize}
+	\item Un \textbf{correlation ID} unique est généré pour chaque requête utilisateur et propagé entre les microservices.
+	\item Cela permet de tracer le parcours complet d’une requête (de l’AuthService au TaskService, etc.) et de faciliter le \textbf{debugging}.
+\end{itemize}
+
+\subsection{Évolutions futures}
+\begin{itemize}
+	\item Intégration possible avec des solutions de \textbf{metrics} et \textbf{APM} (Application Performance Monitoring) comme Prometheus ou Grafana.
+	\item Mise en place de \textbf{tracing distribué} via OpenTelemetry pour analyser en profondeur les appels entre microservices.
+\end{itemize}
+
+Ainsi, dès le MVP, le projet bénéficie d’une solution robuste pour la \textbf{collecte de logs et le suivi en temps réel}, garantissant une détection rapide des anomalies et une maintenance proactive.
+
+
