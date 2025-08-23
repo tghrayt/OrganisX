@@ -20,29 +20,30 @@
 \contentsline {section}{\numberline {3.4}Exigences techniques}{8}{section.3.4}%
 \contentsline {subsection}{\numberline {3.4.1}Backend}{8}{subsection.3.4.1}%
 \contentsline {subsubsection}{Modèle de données simplifié}{9}{section*.4}%
-\contentsline {subsubsection}{API principales}{9}{section*.5}%
-\contentsline {subsection}{\numberline {3.4.2}Frontend}{9}{subsection.3.4.2}%
-\contentsline {section}{\numberline {3.5}Exigences non-fonctionnelles}{9}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Architecture MVP 1}{9}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}Backend}{9}{subsection.3.6.1}%
+\contentsline {subsubsection}{Diagramme de classes pour le microservice AuthService}{9}{section*.5}%
+\contentsline {subsubsection}{API principales}{9}{section*.6}%
+\contentsline {subsection}{\numberline {3.4.2}Frontend}{10}{subsection.3.4.2}%
+\contentsline {section}{\numberline {3.5}Exigences non-fonctionnelles}{10}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Architecture MVP 1}{10}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Backend}{10}{subsection.3.6.1}%
 \contentsline {subsection}{\numberline {3.6.2}Frontend}{10}{subsection.3.6.2}%
-\contentsline {subsection}{\numberline {3.6.3}Schéma d’architecture}{10}{subsection.3.6.3}%
-\contentsline {section}{\numberline {3.7}Planification / Roadmap}{10}{section.3.7}%
-\contentsline {subsection}{\numberline {3.7.1}Plan de tests}{10}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.6.3}Schéma d’architecture}{11}{subsection.3.6.3}%
+\contentsline {section}{\numberline {3.7}Planification / Roadmap}{11}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}Plan de tests}{11}{subsection.3.7.1}%
 \contentsline {subsection}{\numberline {3.7.2}Jalons MVP1}{11}{subsection.3.7.2}%
-\contentsline {section}{\numberline {3.8}Conclusion}{11}{section.3.8}%
-\contentsline {chapter}{\numberline {4}Architecture}{12}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Philosophie générale}{13}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Structure Backend}{14}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Structure Frontend}{15}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Communication Frontend/Backend}{16}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Architecture microservices dès le MVP}{16}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Communication entre microservices}{17}{section.4.6}%
-\contentsline {subsection}{\numberline {4.6.1}Communication synchrone}{17}{subsection.4.6.1}%
-\contentsline {subsection}{\numberline {4.6.2}Communication asynchrone (prévue pour les évolutions futures)}{17}{subsection.4.6.2}%
-\contentsline {subsection}{\numberline {4.6.3}Gestion des contrats et documentation}{17}{subsection.4.6.3}%
-\contentsline {section}{\numberline {4.7}Monitoring et observabilité}{18}{section.4.7}%
-\contentsline {subsection}{\numberline {4.7.1}Collecte des logs}{18}{subsection.4.7.1}%
-\contentsline {subsection}{\numberline {4.7.2}Suivi de la performance et alertes}{18}{subsection.4.7.2}%
-\contentsline {subsection}{\numberline {4.7.3}Traçabilité des requêtes}{18}{subsection.4.7.3}%
-\contentsline {subsection}{\numberline {4.7.4}Évolutions futures}{18}{subsection.4.7.4}%
+\contentsline {section}{\numberline {3.8}Conclusion}{12}{section.3.8}%
+\contentsline {chapter}{\numberline {4}Architecture}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Philosophie générale}{14}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Structure Backend}{15}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Structure Frontend}{16}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Communication Frontend/Backend}{17}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Architecture microservices dès le MVP}{17}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Communication entre microservices}{18}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}Communication synchrone}{18}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}Communication asynchrone (prévue pour les évolutions futures)}{18}{subsection.4.6.2}%
+\contentsline {subsection}{\numberline {4.6.3}Gestion des contrats et documentation}{18}{subsection.4.6.3}%
+\contentsline {section}{\numberline {4.7}Monitoring et observabilité}{19}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}Collecte des logs}{19}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Suivi de la performance et alertes}{19}{subsection.4.7.2}%
+\contentsline {subsection}{\numberline {4.7.3}Traçabilité des requêtes}{19}{subsection.4.7.3}%
+\contentsline {subsection}{\numberline {4.7.4}Évolutions futures}{19}{subsection.4.7.4}%
