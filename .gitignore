@@ -417,3 +417,4 @@ FodyWeavers.xsd
 *.msm
 *.msp
 /Backend/AuthService/AuthService.Api/appsettings.Development.json
+/Backend/AuthService/AuthService.Api/Properties/launchSettings.json
