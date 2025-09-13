@@ -7,9 +7,9 @@ namespace AuthService.Infrastructure.Repositories
 {
     public class AuthRepository(IMediator mediator) : IAuthSpi
     {
-        public async Task<RegisterResponse> RegisterAsync(RegisterRequest request)
+        public async Task<RegisterResponse> RegisterAsync(RegisterRequest request, CancellationToken cancellationToken)
         {
-           return await mediator.Send(new RegisterRequestCommand(request), CancellationToken.None);
+           return await mediator.Send(new RegisterRequestCommand(request), cancellationToken);
         }
     }
 }

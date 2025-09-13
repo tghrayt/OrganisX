@@ -7,9 +7,9 @@ namespace AuthService.Application.Services
     public class AuthServiceImpl(IAuthSpi authSpi) : IAuthService
     {
 
-        public async Task<RegisterResponse> RegisterAsync(RegisterRequest request)
+        public async Task<RegisterResponse> RegisterAsync(RegisterRequest request, CancellationToken cancellationToken)
         {
-            return await authSpi.RegisterAsync(request);
+            return await authSpi.RegisterAsync(request, cancellationToken);
         }
     }
 }

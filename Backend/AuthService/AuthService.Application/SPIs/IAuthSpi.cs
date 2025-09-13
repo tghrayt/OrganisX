@@ -4,6 +4,6 @@ namespace AuthService.Application.SPIs
 {
     public interface IAuthSpi
     {
-        Task<RegisterResponse> RegisterAsync(RegisterRequest request);
+        Task<RegisterResponse> RegisterAsync(RegisterRequest request, CancellationToken cancellationToken);
     }
 }

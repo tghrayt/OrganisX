@@ -4,6 +4,6 @@ namespace AuthService.Domain.APIs
 {
     public interface IAuthService
     {
-        Task<RegisterResponse> RegisterAsync(RegisterRequest request);
+        Task<RegisterResponse> RegisterAsync(RegisterRequest request, CancellationToken );
     }
 }
