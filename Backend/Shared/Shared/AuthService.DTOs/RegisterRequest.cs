@@ -17,7 +17,23 @@ namespace Shared.AuthService.DTOs
         [Required]
         public string LastName { get; set; }
 
-        public string Local { get; set; } = "fr-FR";
-        public string TimeZone { get; set; } = "UTC";
+        public string Local { get; set; }
+        public string TimeZone { get; set; }
+
+        public RegisterRequest(string email, string password, string firstName, string lastName, string local, string timeZone)
+        {
+            Email = email;
+            Password = password;
+            FirstName = firstName;
+            LastName = lastName;
+            Local = local ?? "fr-FR";
+            TimeZone = timeZone ?? "UTC";
+        }
+
+        public RegisterRequest()
+        {
+            Local = "fr-FR";
+            TimeZone = "UTC";
+        }
     }
 }
