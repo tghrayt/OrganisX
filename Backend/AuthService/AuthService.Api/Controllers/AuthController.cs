@@ -30,7 +30,9 @@ namespace AuthService.Api.Controllers
         [ProducesResponseType(500)]
         public async Task<ActionResult<RegisterResponse>> Register([FromBody] RegisterRequest request, CancellationToken cancellationToken)
         {
-            var result = await _authService.RegisterAsync(request);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var result = await _authService.RegisterAsync(request, cancellationToken);
             return Ok(result);
         }
     }
